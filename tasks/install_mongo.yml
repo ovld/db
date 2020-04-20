@@ -1,0 +1,22 @@
+- name: ADD GPG KEY
+  apt_key:
+    url: https://www.mongodb.org/static/pgp/server-3.2.asc
+    state: present
+
+- name: ADD REPO
+  apt_repository:
+    repo: deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
+    state: present
+    filename: mongo
+
+- name: INSTALL PACKAGES
+  apt:
+    name: mongodb-org
+    state: present
+    force_apt_get: yes
+    update_cache: yes
+
+- name: START MONGO
+  systemd:
+    name: mongod
+    enabled: yes
