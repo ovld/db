@@ -1,3 +1,4 @@
+---
 - name: ADD GPG KEY
   apt_key:
     url: https://www.mongodb.org/static/pgp/server-3.2.asc

@@ -1,3 +1,4 @@
+---
 - name: mongod.config
   template:
     src: mongod.conf.j2
