@@ -1,8 +1,6 @@
 ---
 driver:
-  name: vagrant
-  provider:
-    name: gce
+  name: gce
 lint:
   name: yamllint
 platforms:
