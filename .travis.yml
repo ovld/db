@@ -1,8 +1,8 @@
 language: python
 python:
-- '3.7'
+- '3.6'
 install:
-- pip install ansible>=2.4 molecule==2.22 apache-libcloud testinfra
+- pip install ansible>=2.4 molecule==2.22 apache-libcloud testinfra==3.4.0
 script:
 - molecule --debug test
 after_script:
