@@ -6,7 +6,7 @@
   no_log: false
   vars:
     ssh_port: 22
-    ssh_user: "{{ lookup('env', 'USER') }}"
+    ssh_user: "travis"
     ssh_identity_file: "{{ lookup('env', 'HOME') }}/.ssh/google_compute_engine"
     ansible_python_interpreter: python
   tasks:
