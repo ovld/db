@@ -1,13 +1,11 @@
 language: python
 python:
 - '3.7'
-env:
-  global:
-  - secure: "F6D8rZuBKUU6ICddnH04eSgNSuhWI/m2Maa6QY5/PciRpcXCQcJiLYKSWwXg1t2vIUFCsA4VHo7i4AlTns3SMWNJP95KcpISEJGa6uO9gF27fMDgKovjrUqWAftMGmm3/PkASdakvqHkMOE77/mSGL9JFSNBThiSMDnYNAGjUJ2jIaqpaqEuRwcQYXbQpDKyUoTQXR8xz5duV3QIdEP4wUqyX6juBHRpa13M5tRWMvz/DsDc4R+RjgeFj8s02YyPlFOyM51VM5pzvcOGyKIbF+upSg4IzfvtKAxYAp6m4tJ7rLMy6uuiGHN+lfio7x1jw0hppA329DjuOl8WK/YM9kyeMLeE0QVOcxLBzO7kb3QOiB2R+vn9N0VfPMJSjSY8it4X3rGS7PmezaPH8/Rq7px6niXg/+961hIh4ugVgnqYErOVqD6TxV6eaC+Sm5ZcN81MKrnwMZbfrraUTNJlawN5cTBlHpIoqUwEYERqAbsnKS/UO8yh7iVR/vS69F1qGBqZKa7wXMjWuGVUjC5xl8EOPZQhG8JIY01lYVMUBLIabRPtgG5lwBxzmI26JC7PeyUCH2iAnsfs0B9wq93FsqGFSOZmiuHpGki48FBP6MQ4MRKZfeXo/XMIHjZI4UeLRR73DKkI7WSRNEBMuVECecNUSJV9D/9wla6zeYhaEfg="
 before_install:
-- echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
+- openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv
+  -in secrets.tar.enc -out secrets.tar -d
 - tar xf secrets.tar
 - mv google_compute_engine /home/travis/.ssh/
 - chmod 0600 /home/travis/.ssh/google_compute_engine
-script:
-  - molecule create
+#script:
+#- molecule create
