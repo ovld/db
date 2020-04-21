@@ -1,10 +1,7 @@
 ---
-dist: trusty
-sudo: required
-language: bash
-before_install:
-  - sudo apt install python3 -y
-  - sudo apt install python3-pip -y
+language: python
+python:
+  - '3.7'
 install:
   - pip3 install ansible>=2.4
   - pip3 install molecule==2.22
@@ -13,10 +10,10 @@ install:
   - pip3 install google-auth
   - pip3 install google-api-python-client
 script:
-- molecule --debug test
-- molecule --debug create
+  - molecule --debug test
+  - molecule --debug create
 after_script:
-- molecule --debug destroy
+  - molecule --debug destroy
 env:
   global:
   - secure: oFQtDynWkCeuRFFf9uhifc4DJAYdvEHoHoUt6Ua2RW2tqWiymVUT2/5bT4nq/Rza5vxoJethNxhJA3HXW4+kLPGVnUTqhWGwKPwuTJXLd+wadK5y6h0G+JBG7w/DKkba0Zr0nfy3xZVBLRrvFexSGfVKK6yAGLYatHxH9W2tSsou3urDROruJmtXe36qyiTlxl4KBgRTv3iOZi3fkTzVaI9wJBXS2NjUUBJ36uebGbmebB0tC9K3C3OlZJEWX808OwBNdlVRts8eIQy/9h9Gj0R0mXT6IRYzCcrHZWsEHpNwD+jDZqq2BM9DjhcMs5zRAcpPwrcUUIw3VI7tAmTMDBMvRiSut1Z4gHxODbn7t3KYj4F6w5L5x35dG2doI9pRJ8oKU6HxsDD2uvq8QgZBfHaDawA7UkKFIT/0PS6foF44RMYPiqERY9gzPvVJBrdEWXqHiy/YMvnAW8jqkfoEAwqFYxC5KHlmB32JB/aPC1fWB3LeZ7uWWu6+5Z4n2BVVjoCTXt86imRuqhyB6bsLTmqBwYVpFX9HsHvfhnRIx6OtP5PWIVOZ2FbWTDGJjrjfo5rvtbfka6JzRnCQ5h5i0hi2CeJJqAgH3XCeFV8M6MqQ5m2IeccSePkArQFZb7JV5Og4MsmNDIE42mkIZUflBKq5d3gtYDUnvrbIm+PMRQw=
