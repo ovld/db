@@ -4,4 +4,4 @@ python:
 install:
   - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
   - tar xf secrets.tar
-  - cat password
+  - cat google_compute_engine
