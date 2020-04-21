@@ -35,6 +35,8 @@
           source: "{{ disk }}"
         labels:
           environment: testing
+        network_interfaces:
+        - network: "default"
         zone: europe-west1-b
         project: "{{ gcp_project }}"
         auth_kind: serviceaccount
