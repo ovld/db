@@ -7,12 +7,15 @@ before_install:
 - tar xf secrets.tar
 - mv google_compute_engine /home/travis/.ssh/
 - chmod 0600 /home/travis/.ssh/google_compute_engine
-- mkdir ~/.secrets
-- mv credentials.json ~/.secrets
-- chmod 0600 ~/.secrets/credentials.json
 script:
 - molecule create
+- molecule converge
+- molecule verify
+after_script:
+- molecule destroy
 env:
+  matrix:
+    - GCE_CREDENTIALS_FILE="$(pwd)/credentials.json"
   global:
   - secure: NQnHNaJpdgnAkxpu5DE9HH5/T12wUAM05LydpUcQ7D6WLMS6H9GUjD9w+Kcxk9s+MREl1fnuvUMaTse7N5Us9MyagvT+cpy4Tvo65dLKRa4QT+MTAoIlnR9Uqfit8NIHHznIXaEUHTkD0pDhEq9/fUC18Z8Q9gp3rDbsmmVWwW1uICPLRj+Z6tcCd4Bm2miXhOwgH6+fA4CT1QyLNIq2CU6h8AHL8y4L8S0eo4EEkJfDziJ/NHcLcVC/Wy5sLAj/PTykcZXF0vmS3wV37G5pQhM/5SJGgFJ6RjaUKHM18+sfo/J5w9uoSppd0SB7ArSI5gnH+CisZBWy7ZcndXjJBrHueAB+BtjbxtEeLw6GC10OBSyD9eIlPmM5uMvcGDqX/Nuvq6XQo7a9Cb++C+NZfxj2pwA8ALJPKmhQ0e4yP6ulgvsqwt2DoaRrPQTSi+/PLnW0UgSTg0kiCfEwJKggicnquDtElWJbcV8a+Yk3rWO0ylp6fKU5wOMVY7Is32oMMc3w86XpLA2y/Wg5D9wgFaIKs3U0RYJzv+t07aSgInNI4Hm30I8Tgss/IRN/a2KoRafpN4V4X4dMlMyvKVxNfuH3NDOgITm/lSUz6EgFTMixzxMHc8nQLjV0u4qUf/2QsKfp0kftSaabzRd3SCSP8G4PxsI9GggGxbpUHmKw4g0=
   - secure: m/1+UuU1NrgXRPmwQ2a0+OBJvUHsFM1/gAhik09tNE4h/mUbobNB8EfTFWrps0M5P40NTGP27KwgIoxfOHQ04LAxB3q8GLcckVoWuNJsYsUS8cGcEqcEm7+MAW3yeTtvrG875j9hFTivYIx2qpRw0YY6+LxQBuyzj9uQD6ewBZS1LLqF2r1Kh11liixThNjCSCLV39Z98TyaSg0QPr34U9vgqxClW8IuwrAoNYxR6bSSYp1XhxQjw80Fh9fGHJRXIpngWnuxyUOYOahZUennGHLBekEH9EePBIRs01LTy7+fIU3F7M4CIZWch6mJyX9z0/AiqO9HOsoSTK/q2qlxsz4IEsiaGrPRmaQebQxUoSe+GilAnRiT5kO5XQhvDvizCUvwzeuVfpUu8AnpaMaayslhm7PIeTH+Fb44fg0Tr2eQyV61ddj4bxGqeFu5iIXwdh7cplhGtAraL/mLVrmN/ydfSxG9tWO/uYmVEasXK9VwM+HRridDmhLGDvw0qKdQcMKLzWqSiCzv+TpMlTqaJlhC0bmCisZWsKMv7dRyuGY7Psgms3GlTdqXv4qBcwse5jLw2KRIRZ8mM2Je0hUqjJbjJPuoTaShwvxRNsOPhjvBKWAdkmmCrRLrOzjbwQnFvWjyN+NLWHn6cKu39ZJ1TWHOy2Pxv8nBj4hfbTuxUc4=
