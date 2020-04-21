@@ -1,69 +1,57 @@
 ---
-- name: Create
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  no_log: false
-  vars:
-    ssh_port: 22
-    ssh_user: "travis"
-    ssh_identity_file: "{{ lookup('env', 'HOME') }}/.ssh/google_compute_engine"
-    ansible_python_interpreter: python
-    gcp_project: "{{ lookup('env', 'GCE_PROJECT_ID') }}"
-    gcp_cred_kind: serviceaccount
-    gcp_cred_file: "~/.secrets/credentials.json"
-  tasks:
-    - name: create a disk
-      gcp_compute_disk:
-        name: "instance-travis"
-        size_gb: 10
-        source_image: projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20200407
-        zone: europe-west1-b
-        project: "{{ gcp_project }}"
-        auth_kind: "{{ gcp_cred_kind }}"
-        service_account_file: "{{ gcp_cred_file }}"
-        state: present
-      register: disk
+  - name: Create
+    hosts: localhost
+    connection: local
+    gather_facts: False
+    no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
+    vars:
+      molecule_file: "{{ lookup('env', 'MOLECULE_FILE') }}"
+      molecule_instance_config: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
+      molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
 
-    - name: create a network
-      gcp_compute_network:
-          name: 'network-instance'
-          project: "{{ gcp_project }}"
-          auth_kind: "{{ gcp_cred_kind }}"
-          service_account_file: "{{ gcp_cred_file }}"
-          scopes:
-            - https://www.googleapis.com/auth/compute
-          state: present
-      register: network
+      ssh_port: 22
+      ssh_user: "{{ lookup('env', 'USER') }}"
+      ssh_identity_file: "{{ lookup('env', 'HOME') }}/.ssh/google_compute_engine"
+    tasks:
+      - name: Create molecule instance(s)
+        gce:
+          instance_names: "{{ item.name }}"
+          zone: "{{ item.zone }}"
+          machine_type: "{{ item.machine_type }}"
+          image: "{{ item.image }}"
+          service_account_email: "{{ lookup('env', 'GCE_SERVICE_ACCOUNT_EMAIL') }}"
+          credentials_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
+          project_id: "{{ lookup('env', 'GCE_PROJECT_ID') }}"
+        register: server
+        with_items: "{{ molecule_yml.platforms }}"
 
-    - name: create a address
-      gcp_compute_address:
-        name: address-instance
-        region: europe-west1
-        project: "{{ gcp_project }}"
-        auth_kind: "{{ gcp_cred_kind }}"
-        service_account_file: "{{ gcp_cred_file }}"
-        state: present
-      register: address
+      - name: Populate instance config dict
+        set_fact:
+          instance_conf_dict: {
+            'instance': "{{ item.instance_data[0].name }}",
+            'address': "{{ item.instance_data[0].public_ip }}",
+            'user': "{{ ssh_user }}",
+            'port': "{{ ssh_port }}",
+            'identity_file': "{{ ssh_identity_file }}", }
+        with_items: "{{ server.results }}"
+        register: instance_config_dict
+        when: server.changed | bool
 
-    - name: create a instance
-      gcp_compute_instance:
-        name: "instance-travis"
-        machine_type: f1-micro
-        disks:
-        - auto_delete: 'true'
-          boot: 'true'
-          source: "{{ disk }}"
-        labels:
-          environment: testing
-        network_interfaces:
-        - network: "{{ network }}"
-          access_configs:
-          - name: External NAT
-            nat_ip: "{{ address }}"
-            type: ONE_TO_ONE_NAT
-        zone: europe-west1-b
-        project: "{{ gcp_project }}"
-        auth_kind: serviceaccount
-        service_account_file: "{{ gcp_cred_file }}"
-        state: present
+      - name: Convert instance config dict to a list
+        set_fact:
+          instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+        when: server.changed | bool
+
+      - name: Dump instance config
+        copy:
+          content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
+          dest: "{{ molecule_instance_config }}"
+        when: server.changed | bool
+
+      - name: Wait for SSH
+        wait_for:
+          port: "{{ ssh_port }}"
+          host: "{{ item.address }}"
+          search_regex: SSH
+          delay: 10
+        with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
