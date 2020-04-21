@@ -9,6 +9,7 @@ before_install:
 - chmod 0600 /home/travis/.ssh/google_compute_engine
 script:
 - molecule create
+- cat /home/travis/.cache/molecule/db/default/instance_config.yml
 after_script:
 - molecule destroy
 env:
