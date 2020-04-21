@@ -13,15 +13,20 @@
     gcp_cred_kind: serviceaccount
     gcp_cred_file: "~/.secrets/credentials.json"
   tasks:
-    - name: create a disk
-      gcp_compute_disk:
+    - name: create a instance
+      gcp_compute_instance:
         name: "{{ item.name }}"
-        size_gb: 10
-        source_image: "{{ item.image }}"
+        machine_type: "{{ item.machine_type }}"
+        disks:
+        - auto_delete: 'true'
+          boot: 'true'
+          source_image: "{{ item.image }}"
+          size_gb: 10
+        labels:
+          environment: testing
         zone: "{{ item.zone }}"
         project: "{{ gcp_project }}"
-        auth_kind: "{{ gcp_cred_kind }}"
+        auth_kind: serviceaccount
         service_account_file: "{{ gcp_cred_file }}"
         state: present
-      register: disk
       with_items: "{{ molecule_yml.platforms }}"
