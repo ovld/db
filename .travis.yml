@@ -8,9 +8,7 @@ before_install:
 - mv google_compute_engine /home/travis/.ssh/
 - chmod 0600 /home/travis/.ssh/google_compute_engine
 script:
-- molecule --debug create
-- molecule --debug converge
-- molecule --debug verify
+- molecule create
 after_script:
 - molecule destroy
 env:
