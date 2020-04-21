@@ -2,18 +2,7 @@
 language: python
 python:
 - '3.6'
-virtualenv:
-  system_site_packages: true
-before_install:
-- pip3 install ansible>=2.4
-- pip3 install molecule==2.22
-- pip3 install apache-libcloud
-- pip3 install testinfra==3.4.0
-- pip3 install --upgrade google-auth
-- pip3 install --upgrade google-api-python-client
-before_script:
-- pip freeze | grep google.auth
-- pip freeze | grep google-api-python-client
+install: pip install -r requirements.txt
 script:
 - molecule --debug test
 - molecule --debug create
