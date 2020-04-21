@@ -13,6 +13,7 @@ before_script:
 - pip freeze | grep google.auth
 - pip freeze | grep google-api-python-client
 script:
+- molecule --debug test
 - molecule --debug create
 after_script:
 - molecule --debug destroy
