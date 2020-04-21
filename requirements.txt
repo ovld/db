@@ -2,7 +2,7 @@ ansible>=2.4
 google-api-python-client
 google-auth
 molecule==2.22
-testinfra>=1.10
+testinfra==3.4.0
 python-vagrant>=0.5.15
 apache-libcloud
 testinfra==3.4.0
