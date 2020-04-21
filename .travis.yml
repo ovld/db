@@ -1,6 +1,11 @@
 language: python
 python:
-- '3.7'
-before_install:
-- openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv
-  -in secrets.tar.enc -out secrets.tar -d
+  - '3.7'
+env:
+  global:
+    secure: VO2orQ9/LJOUB/wrsN2Fu6sRMitq0gNXLqdV3NBJ4ki2AsZd6W176i5wjP9iAGLqt5wDXVkL0iFnTUkB9/dYQWkS4HWg2Ry08MXENzaiLy8AJ3HpTLJSLQDnBwbkBrcTmIABMuv9YizSghzNtvDP5UIeF9qtHczV5EVHL7mUFG4aDd54WBDseO8AMknHBoy2gmDuqmkxkb6Yy97aealIAPyKqnAIGqbD9K2jFKikv6/mx6BrMOfxMY9seymxjvAcdWQwdEIdgwh5dQflSsN9KX/kiVjDbGwy5d2RhuqmwA4THUtNOhOWwEfWLcLDpCSGARZLKJT7hKd9dBOLk1H2B/sfQKyW66UKM6buwxXDUBfK4Gwm9Cg8Yk0O3zFjWHIVsBwUkkkmCaaOIER5TGb72tO2yXFrMEPpLuPRt5d5rOR2r/YQmlMcGm24P5brtwYKTT4YHvjmD5H/62tcxhw0W+h7fO1YmsZbBA1AKfz88OtiKiuUKfGvszRxjQW87kpe1pAlxUmsuXzrQyHO5CAv5PduxmmoYxLkqdy9NC0LoEmZpuM/1gAQYEKzFQXG0TswBPjjFPj1GaIJTIcAqUQwOmTK5e18ZUFY/nmip0yt/JLuwjnxq+QBw0vT6p9GT7QvJFLocPSFC0SKToZ8x0NOyUQyGEITEbAu0/2u6EejAq0=
+install:
+  - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
+  - ls -la
+  - tar xf secrets.tar
+  - ls -la
