@@ -21,22 +21,3 @@
         service_account_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
         state: present
       register: disk
-
-    - name: create a network
-      gcp_compute_network:
-        name: network-instance
-        project: "{{ lookup('env', 'GCE_PROJECT_ID') }}"
-        auth_kind: "serviceaccount"
-        service_account_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
-        state: present
-      register: network
-
-    - name: create a address
-      gcp_compute_address:
-        name: address-instance
-        region: europe-west1
-        project: "{{ lookup('env', 'GCE_PROJECT_ID') }}"
-        auth_kind: "serviceaccount"
-        service_account_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
-        state: present
-      register: address
