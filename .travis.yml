@@ -2,13 +2,5 @@ language: python
 python:
 - '3.7'
 before_install:
-- openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv -in secrets.tar.enc -out secrets.tar -d
-install:
-- pip3 install ansible>=2.4
-- pip3 install molecule==2.22
-- pip3 install apache-libcloud
-- pip3 install testinfra==3.4.0
-- pip3 install google-auth
-- pip3 install google-api-python-client
-script:
-- molecule --debug create
+- openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv
+  -in secrets.tar.enc -out secrets.tar -d
