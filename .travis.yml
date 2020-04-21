@@ -3,6 +3,5 @@ python:
   - '3.7'
 install:
   - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
-  - ls -la
   - tar xf secrets.tar
-  - ls -la
+  - cat password
