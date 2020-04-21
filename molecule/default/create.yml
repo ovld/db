@@ -100,10 +100,13 @@
           content: "{{ instance_conf | to_json | from_json | molecule_to_yaml }}"
           dest: "{{ molecule_instance_config }}"
 
+      - debug:
+          msg: "{{ molecule_instance_config }}"
+
       - name: Wait for SSH
         wait_for:
           port: "{{ ssh_port }}"
           host: "{{ item.address }}"
           search_regex: SSH
-          delay: 10
+          delay: 30
         with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
