@@ -11,7 +11,7 @@
     ansible_python_interpreter: python
     gcp_project: "{{ lookup('env', 'GCE_PROJECT_ID') }}"
     gcp_cred_kind: serviceaccount
-    gcp_cred_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
+    gcp_cred_file: "../../credentials.json"
   tasks:
     - name: create a disk
       gcp_compute_disk:
