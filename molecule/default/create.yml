@@ -44,4 +44,4 @@
       - name: GENERATE instance_config.yml
         template:
           src: instance_config.yml.j2
-          dest: "{{ lookup('env', 'HOME') }}/.cache/molecule/test/default/instance_config.yml"
+          dest: "{{ molecule_instance_config }}"
