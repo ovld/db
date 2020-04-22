@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: db
   author: Author Name
   description: An outstanding role that does magical things to your infrastructure. Run it, and see!
   company: Acme, Co.
