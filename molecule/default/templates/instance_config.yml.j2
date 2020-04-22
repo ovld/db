@@ -1,4 +1,4 @@
 ---
 {% for instance in hosts['results'] %}
-- {{ instance['networkInterfaces'][0] }}
+- {{ instance['networkInterfaces'][0]['accessConfigs'][0]['natIP'] }}
 {% endfor %}
