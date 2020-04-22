@@ -1,4 +1,4 @@
 ---
 {% for instance in hosts %}
-- {{ instance['networkInterfaces'][0]['accessConfigs']['0']['natIP'] }}
+- {{ instance }}
 {% endfor %}
