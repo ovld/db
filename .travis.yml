@@ -9,3 +9,4 @@ script:
 - molecule syntax
 - molecule create
 - molecule list
+- molecule converge
