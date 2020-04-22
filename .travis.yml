@@ -10,8 +10,6 @@ before_install:
 script:
 - molecule create
 - cat /home/travis/.cache/molecule/db/default/instance_config.yml
-after_script:
-- molecule destroy
 env:
   matrix:
     - GCE_CREDENTIALS_FILE="$(pwd)/credentials.json"
