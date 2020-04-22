@@ -38,3 +38,10 @@
         template:
           src: instance_config.yml.j2
           dest: "{{ MOLECULE_INSTANCE_CONFIG }}"
+
+      - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
+        wait_for:
+          host: "{{ item.address }}"
+          port: 22
+          delay: 10
+        with_items: "{{ lookup('file', {{ MOLECULE_INSTANCE_CONFIG }}) | from_yaml }}"
