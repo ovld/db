@@ -6,6 +6,7 @@
     no_log: false
     vars:
       TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
+      MOLECULE_INSTANCE_CONFIG: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
     tasks:
       - name: CREATE A INSTANCE
         gcp_compute_instance:
@@ -31,3 +32,8 @@
           state: present
         register: hosts
         with_items: "{{ molecule_yml.platforms }}"
+
+      - name: GENERATE instance_config.yml
+        template:
+          src: instance_config.yml.j2
+          dest: "{{ MOLECULE_INSTANCE_CONFIG }}"
