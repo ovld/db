@@ -10,3 +10,4 @@ script:
 - molecule create
 - molecule list
 - molecule converge
+- molecule verify
