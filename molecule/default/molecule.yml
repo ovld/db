@@ -9,11 +9,13 @@ platforms:
   - name: instance-travis
     zone: europe-west1-b
     machine_type: f1-micro
-    image: ubuntu-1604-xenial-v20200407
+    source_image: projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20200407
+    disk_size_gb: 10
   - name: instance-travis2
     zone: europe-west1-b
     machine_type: f1-micro
-    image: ubuntu-1604-xenial-v20200407
+    source_image: projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20200407
+    disk_size_gb: 10
 provisioner:
   name: ansible
   lint:
