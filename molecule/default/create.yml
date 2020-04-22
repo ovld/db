@@ -5,10 +5,6 @@
     gather_facts: False
     no_log: false
     vars:
-      ssh_port: 22
-      ssh_user: "{{ lookup('env', 'USER') }}"
-      ssh_identity_file: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}/google_compute_engine"
-#      ansible_python_interpreter: python
       TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
     tasks:
       - name: CREATE A INSTANCE
