@@ -1,4 +1,8 @@
 ---
 {% for instance in hosts['results'] %}
-- {{ instance['networkInterfaces'][0]['accessConfigs'][0]['natIP'] }}
+- address: {{ instance['networkInterfaces'][0]['accessConfigs'][0]['natIP'] }}
+  identity_file: /home/travis/.ssh/google_compute_engine
+  instance: {{ instance['name'] }}
+  port: 22
+  user: travis
 {% endfor %}
