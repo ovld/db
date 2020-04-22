@@ -9,8 +9,11 @@ before_install:
 - chmod 0600 /home/travis/.ssh/google_compute_engine
 script:
 - molecule create
-- cat /home/travis/instance_config.yml
-- env
+- molecule list
+- molecule list --format plain
+- molecule list --format yaml
+- molecule --debug list
+
 env:
   matrix:
     - GCE_CREDENTIALS_FILE="$(pwd)/credentials.json"

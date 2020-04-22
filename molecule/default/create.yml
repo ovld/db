@@ -41,11 +41,7 @@
         register: hosts
         with_items: "{{ molecule_yml.platforms }}"
 
-      - name: SHOW VARS
-        debug:
-          msg: "{{ hosts }}"
-
       - name: GENERATE instance_config.yml
         template:
           src: instance_config.yml.j2
-          dest: /home/travis/instance_config.yml
+          dest: "{{ lookup('env', 'HOME') }}/.cache/molecule/test/default/instance_config.yml"
