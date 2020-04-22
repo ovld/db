@@ -41,5 +41,11 @@
         register: instance
         with_items: "{{ molecule_yml.platforms }}"
 
-      - debug:
+      - name: SHOW VARS
+        debug:
           msg: "{{ instance }}"
+
+      - name: GENERATE instance_config.yml
+        template:
+          src: instance_config.yml.j2
+          dest: instance_config.yml
