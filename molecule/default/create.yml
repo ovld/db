@@ -5,9 +5,7 @@
     gather_facts: False
     no_log: false
     vars:
-      molecule_file: "{{ lookup('env', 'MOLECULE_FILE') }}"
       molecule_instance_config: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
-      molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
       ssh_port: 22
       ssh_user: "{{ lookup('env', 'USER') }}"
       ssh_identity_file: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}/google_compute_engine"
@@ -39,7 +37,7 @@
         register: hosts
         with_items: "{{ molecule_yml.platforms }}"
 
-      - name: GENERATE instance_config.yml
-        template:
-          src: instance_config.yml.j2
-          dest: "{{ molecule_instance_config }}"
+#      - name: GENERATE instance_config.yml
+#        template:
+#          src: instance_config.yml.j2
+#          dest: "{{ molecule_instance_config }}"
