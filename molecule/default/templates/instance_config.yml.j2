@@ -1,0 +1,4 @@
+---
+{% for instance, in instance %}
+- {{ instance['networkInterfaces'][0]['accessConfigs']['0']['natIP'] }}
+{% endfor %}
