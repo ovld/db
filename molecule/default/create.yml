@@ -48,4 +48,4 @@
       - name: GENERATE instance_config.yml
         template:
           src: instance_config.yml.j2
-          dest: instance_config.yml
+          dest: /home/travis/instance_config.yml
