@@ -12,9 +12,7 @@
       ssh_user: "{{ lookup('env', 'USER') }}"
       ssh_identity_file: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}/google_compute_engine"
       ansible_python_interpreter: python
-      GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
       TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
-
     tasks:
       - name: CREATE A INSTANCE
         gcp_compute_instance:
@@ -34,7 +32,7 @@
             - name: External NAT
               type: ONE_TO_ONE_NAT
           zone: "{{ item.zone }}"
-          project: "{{ GCP_PROJECT }}"
+          project: "{{ item.project }}"
           auth_kind: serviceaccount
           service_account_file: "{{ TRAVIS_BUILD_DIR }}/credentials.json"
           state: present

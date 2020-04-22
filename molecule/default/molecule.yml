@@ -8,11 +8,13 @@ lint:
   name: yamllint
 platforms:
   - name: instance-travis
+    project: infra-27411228
     zone: europe-west1-b
     machine_type: f1-micro
     source_image: projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20200407
     disk_size_gb: 10
   - name: instance-travis2
+    project: infra-27411228
     zone: europe-west1-b
     machine_type: f1-micro
     source_image: projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20200407
