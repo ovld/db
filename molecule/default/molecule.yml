@@ -10,6 +10,10 @@ platforms:
     zone: europe-west1-b
     machine_type: f1-micro
     image: ubuntu-1604-xenial-v20200407
+  - name: instance-travis2
+    zone: europe-west1-b
+    machine_type: f1-micro
+    image: ubuntu-1604-xenial-v20200407
 provisioner:
   name: ansible
   lint:
