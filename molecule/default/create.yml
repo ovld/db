@@ -7,6 +7,7 @@
     vars:
       TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
       MOLECULE_INSTANCE_CONFIG: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
+      USER: "{{ lookup('env', 'USER') }}"
     tasks:
       - name: CREATE A INSTANCE
         gcp_compute_instance:
