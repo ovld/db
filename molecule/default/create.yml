@@ -10,10 +10,10 @@
       molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
       ssh_port: 22
       ssh_user: "{{ lookup('env', 'USER') }}"
-      ssh_identity_file: "{{ lookup('env', 'HOME') }}/.ssh/google_compute_engine"
+      ssh_identity_file: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}/google_compute_engine"
       ansible_python_interpreter: python
-      gcp_project: infra-27411228
-      gcp_cred_file: "{{ lookup('env', 'GCE_CREDENTIALS_FILE') }}"
+      GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
+      TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
 
     tasks:
       - name: CREATE A INSTANCE
@@ -34,9 +34,9 @@
             - name: External NAT
               type: ONE_TO_ONE_NAT
           zone: "{{ item.zone }}"
-          project: "{{ gcp_project }}"
+          project: "{{ GCP_PROJECT }}"
           auth_kind: serviceaccount
-          service_account_file: "{{ gcp_cred_file }}"
+          service_account_file: "{{ TRAVIS_BUILD_DIR }}/credentials.json"
           state: present
         register: hosts
         with_items: "{{ molecule_yml.platforms }}"
