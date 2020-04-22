@@ -38,12 +38,12 @@
           auth_kind: serviceaccount
           service_account_file: "{{ gcp_cred_file }}"
           state: present
-        register: instance
+        register: hosts
         with_items: "{{ molecule_yml.platforms }}"
 
       - name: SHOW VARS
         debug:
-          msg: "{{ instance }}"
+          msg: "{{ hosts }}"
 
       - name: GENERATE instance_config.yml
         template:
