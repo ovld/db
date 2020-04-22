@@ -1,3 +1,8 @@
-# Build folder and log file
-build/
-build.log
+*.pyc
+.molecule
+.cache
+.pytest_cache
+credentials.json
+secrets.tar
+*.ssh
+*.pub

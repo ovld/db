@@ -1,0 +1,39 @@
+---
+  - name: Destroy
+    hosts: localhost
+    connection: local
+    gather_facts: False
+    no_log: False
+    vars:
+      TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
+      MOLECULE_INSTANCE_CONFIG: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
+      USER: "{{ lookup('env', 'USER') }}"
+    tasks:
+      - name: DESTROY INSTANCE
+        gcp_compute_instance:
+          name: "{{ item.name }}"
+          machine_type: "{{ item.machine_type }}"
+          disks:
+          - auto_delete: 'true'
+            boot: 'true'
+            initialize_params:
+              disk_size_gb: "{{ item.disk_size_gb }}"
+              source_image: "{{ item.source_image }}"
+          labels:
+            environment: molecule
+          network_interfaces:
+          - network:
+            access_configs:
+            - name: External NAT
+              type: ONE_TO_ONE_NAT
+          zone: "{{ item.zone }}"
+          project: "{{ item.project }}"
+          auth_kind: serviceaccount
+          service_account_file: "{{ TRAVIS_BUILD_DIR }}/credentials.json"
+          state: absent
+        with_items: "{{ molecule_yml.platforms }}"
+
+      - name: GENERATE instance_config.yml
+        template:
+          src: instance_config.yml.j2
+          dest: "{{ MOLECULE_INSTANCE_CONFIG }}"

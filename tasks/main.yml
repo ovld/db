@@ -1,0 +1,10 @@
+---
+- name: SHOW ENV INFO
+  debug:
+    msg: "env: {{ env }}"
+
+- include: install_mongo.yml
+  tags: install
+
+- include: config_mongo.yml
+  tags: config

@@ -1,0 +1,10 @@
+---
+{% if hosts is defined %}
+{% for instance in hosts['results'] %}
+- address: {{ instance['networkInterfaces'][0]['accessConfigs'][0]['natIP'] }}
+  identity_file: {{ TRAVIS_BUILD_DIR }}/travis-ci.ssh
+  instance: {{ instance['name'] }}
+  port: 22
+  user: {{ USER }}
+{% endfor %}
+{% endif %}
