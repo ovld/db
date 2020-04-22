@@ -5,3 +5,4 @@
 credentials.json
 secrets.tar
 *.ssh
+*.pub
