@@ -44,4 +44,4 @@
           host: "{{ item.address }}"
           port: 22
           delay: 10
-        with_items: "{{ lookup('file', {{ MOLECULE_INSTANCE_CONFIG }}) | from_yaml }}"
+        with_items: "{{ lookup('file', MOLECULE_INSTANCE_CONFIG) | from_yaml }}"
