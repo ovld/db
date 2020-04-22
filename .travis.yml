@@ -10,6 +10,7 @@ before_install:
 script:
 - molecule create
 - cat /home/travis/instance_config.yml
+- env
 env:
   matrix:
     - GCE_CREDENTIALS_FILE="$(pwd)/credentials.json"
