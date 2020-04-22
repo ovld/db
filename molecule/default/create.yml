@@ -5,11 +5,10 @@
     gather_facts: False
     no_log: false
     vars:
-      molecule_instance_config: "{{ lookup('env', 'MOLECULE_INSTANCE_CONFIG') }}"
       ssh_port: 22
       ssh_user: "{{ lookup('env', 'USER') }}"
       ssh_identity_file: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}/google_compute_engine"
-      ansible_python_interpreter: python
+#      ansible_python_interpreter: python
       TRAVIS_BUILD_DIR: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
     tasks:
       - name: CREATE A INSTANCE
@@ -36,8 +35,3 @@
           state: present
         register: hosts
         with_items: "{{ molecule_yml.platforms }}"
-
-#      - name: GENERATE instance_config.yml
-#        template:
-#          src: instance_config.yml.j2
-#          dest: "{{ molecule_instance_config }}"
