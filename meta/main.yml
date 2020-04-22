@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Author Name
+  description: An outstanding role that does magical things to your infrastructure. Run it, and see!
+  company: Acme, Co.
+  license: Apache v2
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+      - 16.04
+  cloud_platforms:
+    - Google
+  galaxy_tags:
+    - db
+    - gcp
+    - molecule
+
+dependencies: []
