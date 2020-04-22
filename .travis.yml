@@ -11,3 +11,6 @@ script:
 - molecule list
 - molecule converge
 - molecule verify
+after_sript:
+- molecule destroy
+- molecule list
